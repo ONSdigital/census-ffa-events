@@ -1,6 +1,6 @@
 package uk.gov.ons.census.fwmt.events.producer;
 
-import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,12 +10,11 @@ import org.springframework.stereotype.Component;
 import com.godaddy.logging.Logger;
 import com.godaddy.logging.LoggerFactory;
 
-import uk.gov.ons.census.fwmt.events.config.GatewayEventQueueConfig;
 import uk.gov.ons.census.fwmt.events.data.GatewayErrorEventDTO;
 import uk.gov.ons.census.fwmt.events.data.GatewayEventDTO;
 
 @Component
-class RabbitMQGatewayEventProducer implements GatewayEventProducer {
+public class RabbitMQGatewayEventProducer implements GatewayEventProducer {
 
   private static final Logger log = LoggerFactory.getLogger(RabbitMQGatewayEventProducer.class);
 
@@ -25,13 +24,13 @@ class RabbitMQGatewayEventProducer implements GatewayEventProducer {
 
   @Autowired
   @Qualifier("eventExchange")
-  private FanoutExchange eventExchange;
+  private TopicExchange eventExchange;
 
   @Retryable
   public void sendEvent(GatewayEventDTO event) {
     String msg = "{Could not parse event.}";
     try {
-      rabbitTemplate.convertAndSend(eventExchange.getName(), GatewayEventQueueConfig.GATEWAY_EVENTS_ROUTING_KEY, event);
+      rabbitTemplate.convertAndSend(eventExchange.getName(), event.getContext(), event);
     } catch (Exception e) {
       log.error("Failed to log RabbitMQ Event: {}", msg, e);
     }
@@ -41,7 +40,7 @@ class RabbitMQGatewayEventProducer implements GatewayEventProducer {
   public void sendErrorEvent(GatewayErrorEventDTO errorEvent) {
     String msg = "{Could not parse event.}";
     try {
-      rabbitTemplate.convertAndSend(eventExchange.getName(), GatewayEventQueueConfig.GATEWAY_EVENTS_ROUTING_KEY, errorEvent);
+       rabbitTemplate.convertAndSend(eventExchange.getName(), errorEvent.getContext(), errorEvent);
     } catch (Exception e) {
       log.error("Failed to log RabbitMQ Event: {}", msg, e);
     }

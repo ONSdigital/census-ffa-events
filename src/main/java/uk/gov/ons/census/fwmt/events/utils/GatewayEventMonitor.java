@@ -99,9 +99,10 @@ public class GatewayEventMonitor {
     connection = factory.newConnection();
     channel = connection.createChannel();
 
-    channel.exchangeDeclare(GATEWAY_EVENTS_EXCHANGE, "fanout", true);
+    channel.exchangeDeclare(GATEWAY_EVENTS_EXCHANGE, "topic", true);
     String queueName = channel.queueDeclare().getQueue();
-    channel.queueBind(queueName, GATEWAY_EVENTS_EXCHANGE, GATEWAY_EVENTS_ROUTING_KEY);
+//    channel.queueBind(queueName, GATEWAY_EVENTS_EXCHANGE, GATEWAY_EVENTS_ROUTING_KEY);
+    channel.queueBind(queueName, GATEWAY_EVENTS_EXCHANGE, "*");
 
     Consumer consumer = new DefaultConsumer(channel) {
       @Override

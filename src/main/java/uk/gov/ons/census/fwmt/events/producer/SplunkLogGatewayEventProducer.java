@@ -12,6 +12,7 @@ public class SplunkLogGatewayEventProducer implements GatewayEventProducer {
 
   @Override
   public void sendEvent(GatewayEventDTO event) {
+    log.info(event.getContext() + event.getEventType());
     log.with("event", event).info("{} event", event.getSource());
   }
 

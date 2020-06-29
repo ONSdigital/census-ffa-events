@@ -17,6 +17,7 @@ public class GatewayEventDTO implements Serializable {
   private String caseId;
   private String source;
   private String eventType;
+  private String context;
   private Date localTime;
   private Map<String, String> metadata;
 }

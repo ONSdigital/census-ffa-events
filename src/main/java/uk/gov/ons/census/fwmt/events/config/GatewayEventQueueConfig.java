@@ -3,7 +3,7 @@ package uk.gov.ons.census.fwmt.events.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.DefaultClassMapper;
@@ -21,13 +21,13 @@ import uk.gov.ons.census.fwmt.events.data.GatewayEventDTO;
 
 @Configuration
 public class GatewayEventQueueConfig {
-
-  public static final String GATEWAY_EVENTS_ROUTING_KEY = "Gateway.Event";
+  //TODO These need to be FFA.Event.* or can be configured by the clients
+ // public static final String GATEWAY_EVENTS_ROUTING_KEY = "Gateway.Event";
   public static final String GATEWAY_EVENTS_EXCHANGE = "Gateway.Events.Exchange";
 
   @Bean
-  public FanoutExchange eventExchange() {
-    return new FanoutExchange(GATEWAY_EVENTS_EXCHANGE);
+  public TopicExchange eventExchange() {
+    return new TopicExchange(GATEWAY_EVENTS_EXCHANGE);
   }
 
   @Bean("GW_EVENT_MC")

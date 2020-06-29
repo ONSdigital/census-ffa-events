@@ -17,6 +17,7 @@ public class GatewayErrorEventDTO {
   private String source;
   private String errorEventType;
   private Date localTime;
+  private String context;
   private Map<String, String> metadata;
   private String className;
   private String exceptionName;
