@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import uk.gov.ons.census.ffa.events.data.ErrorEvent;
 import uk.gov.ons.census.ffa.events.data.Event;
 
-@Component
+//@Component
 public class SplunkLogProducer implements EventProducer {
   private static final Logger log = LoggerFactory.getLogger(SplunkLogProducer.class);
 

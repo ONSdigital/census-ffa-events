@@ -6,7 +6,7 @@ import uk.gov.ons.census.ffa.events.data.ErrorEvent;
 import uk.gov.ons.census.ffa.events.data.Event;
 import uk.gov.ons.census.ffa.events.producer.SplunkLogProducer;
 
-@Component
+//@Component
 public class InternalEventMessageReceiver {
   @Autowired
   private SplunkLogProducer splunkLogProducer;

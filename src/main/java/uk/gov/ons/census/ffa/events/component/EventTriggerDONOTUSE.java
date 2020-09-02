@@ -13,7 +13,7 @@ import uk.gov.ons.census.ffa.events.data.Event;
 import uk.gov.ons.census.ffa.events.producer.RabbitMQEventProducer;
 import uk.gov.ons.census.ffa.events.data.ErrorEvent.ErrorEventBuilder;
 
-public class EventTrigger {
+public class EventTriggerDONOTUSE {
 
   @Autowired
   private RabbitMQEventProducer internalEventProducer;

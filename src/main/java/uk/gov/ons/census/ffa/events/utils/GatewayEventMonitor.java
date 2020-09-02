@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
 import uk.gov.ons.census.ffa.events.data.ErrorEvent;
 import uk.gov.ons.census.ffa.events.data.Event;
 
-@Component
+//@Component
 public class GatewayEventMonitor {
   private static final Logger log = LoggerFactory.getLogger(GatewayEventMonitor.class);
 
@@ -100,7 +100,6 @@ public class GatewayEventMonitor {
 
     channel.exchangeDeclare(EVENT_TRIGGER_EXCHANGE, "topic", true);
     String queueName = channel.queueDeclare().getQueue();
-//    channel.queueBind(queueName, GATEWAY_EVENTS_EXCHANGE, GATEWAY_EVENTS_ROUTING_KEY);
     channel.queueBind(queueName, EVENT_TRIGGER_EXCHANGE, "*");
 
     Consumer consumer = new DefaultConsumer(channel) {

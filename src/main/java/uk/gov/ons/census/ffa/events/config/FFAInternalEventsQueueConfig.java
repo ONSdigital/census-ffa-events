@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import uk.gov.ons.census.ffa.events.component.EventTrigger;
+import uk.gov.ons.census.ffa.events.component.EventTriggerDONOTUSE;
 import uk.gov.ons.census.ffa.events.receiver.InternalEventMessageReceiver;
 
-@Configuration
+//@Configuration
 public class FFAInternalEventsQueueConfig {
 
     @Bean
@@ -25,7 +25,7 @@ public class FFAInternalEventsQueueConfig {
     }
     
     @Bean
-    public Binding internalEventsBinding(@Qualifier("eventExchange") TopicExchange topicExchange, @Qualifier("internalEventsQueue") Queue internalEventsQueue, EventTrigger eventTrigger) {
+    public Binding internalEventsBinding(@Qualifier("eventExchange") TopicExchange topicExchange, @Qualifier("internalEventsQueue") Queue internalEventsQueue, EventTriggerDONOTUSE eventTrigger) {
         return BindingBuilder.bind(internalEventsQueue).to(topicExchange).with(eventTrigger.getContextPrefix()+".*");
     }
 

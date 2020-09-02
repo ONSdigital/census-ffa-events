@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import uk.gov.ons.census.ffa.events.data.ErrorEvent;
 import uk.gov.ons.census.ffa.events.data.Event;
 
-@Configuration
+//@Configuration
 public class EventTriggerQueueConfig {
   //TODO These need to be FFA.Event.* or can be configured by the clients
   public static final String EVENTS_TRIGGER_EXCHANGE = "Events.Trigger.Exchange";
