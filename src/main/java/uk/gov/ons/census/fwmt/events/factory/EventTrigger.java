@@ -6,11 +6,11 @@ import java.util.List;
 import com.google.common.base.Strings;
 
 import lombok.Getter;
-import uk.gov.ons.census.fwmt.events.component.GatewayEventManager;
+import uk.gov.ons.census.fwmt.events.component.FfaEventManager;
 
 public class EventTrigger {
 	
-	private GatewayEventManager gatewayEventManager;
+	private FfaEventManager gatewayEventManager;
 	
 	private String source; // FSDR-SERVICE
 	
@@ -18,7 +18,7 @@ public class EventTrigger {
 
 	private String topic;
 
-	public EventTrigger(GatewayEventManager gatewayEventManager, String source, Class klass, String topic) {
+	public EventTrigger(FfaEventManager gatewayEventManager, String source, Class klass, String topic) {
 		this.gatewayEventManager = gatewayEventManager;
 		// TODO Auto-generated constructor stub
 		this.source = source;
@@ -26,7 +26,7 @@ public class EventTrigger {
 		this.topic = topic;
 	}
 
-	public EventBuilder test(String id) {
+	public EventBuilder log(String id) {
 		EventBuilder eb = new EventBuilder() {
 			
 			@Override

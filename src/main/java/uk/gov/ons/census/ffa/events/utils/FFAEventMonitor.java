@@ -34,12 +34,17 @@ import uk.gov.ons.census.ffa.events.data.ErrorEvent;
 import uk.gov.ons.census.ffa.events.data.Event;
 
 //@Component
-public class GatewayEventMonitor {
-  private static final Logger log = LoggerFactory.getLogger(GatewayEventMonitor.class);
+public class FFAEventMonitor {
+  private static final Logger log = LoggerFactory.getLogger(FFAEventMonitor.class);
 
   private static final String EVENT_TRIGGER_EXCHANGE = "Event.Trigger.Exchange";
+
+  private static final String QUEUE_NAME = "EVENTS-MONITOR-QUEUE";
+  
   private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+  
   private static Map<String, Event> gatewayEventMap = null;
+  
   private static Map<String, ErrorEvent> gatewayErrorEventMap = null;
 
   private static List<String> eventToWatch = new ArrayList<>();
@@ -99,7 +104,7 @@ public class GatewayEventMonitor {
     channel = connection.createChannel();
 
     channel.exchangeDeclare(EVENT_TRIGGER_EXCHANGE, "topic", true);
-    String queueName = channel.queueDeclare().getQueue();
+    String queueName = channel.queueDeclare(QUEUE_NAME,true, false, false, null).getQueue();
     channel.queueBind(queueName, EVENT_TRIGGER_EXCHANGE, "*");
 
     Consumer consumer = new DefaultConsumer(channel) {

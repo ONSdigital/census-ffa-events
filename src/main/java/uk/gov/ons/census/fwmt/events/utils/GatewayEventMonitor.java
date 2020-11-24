@@ -108,8 +108,8 @@ public class GatewayEventMonitor {
 
 //    channel.exchangeDeclare(GATEWAY_EVENTS_EXCHANGE, "fanout", true);
     channel.exchangeDeclare(FFA_EVENTS_EXCHANGE, "topic", true);
-    queueName = channel.queueDeclare().getQueue();
-//    queueName = channel.queueDeclare("FFA.Events", false, false, false, null).getQueue();
+//    queueName = channel.queueDeclare().getQueue();
+    queueName = channel.queueDeclare("FFA.Events", false, false, false, null).getQueue();
 //    channel.queueBind(queueName, GATEWAY_EVENTS_EXCHANGE, GATEWAY_EVENTS_ROUTING_KEY);
     channel.queueBind(queueName, FFA_EVENTS_EXCHANGE, FFA_EVENTS_ROUTING_KEY);
 
