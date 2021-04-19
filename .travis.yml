@@ -1,5 +1,8 @@
 language: java
 jdk: openjdk11
+before_install:
+  - echo "artifactory_user=${ARTIFACTORY_USERNAME}" >> ~/.gradle/gradle.properties
+  - echo "artifactory_password=${ARTIFACTORY_PASSWORD}" >> ~/.gradle/gradle.properties
 install: true
 script:
 - |
