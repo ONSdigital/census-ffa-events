@@ -4,7 +4,7 @@ install: true
 script:
 - |
   if [[ $TRAVIS_COMMIT_MESSAGE != 'CONCOURSE SNAPSHOT UPDATE' ]]; then
-    ./gradlew build --info;
+    ./gradlew build --info --refresh-dependencies;
   fi
 branches:
   only:
@@ -17,19 +17,3 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
 after_success:
-- bash <(curl -s https://codecov.io/bash)
-- |-
-  set -e
-  if [[ "$TRAVIS_BRANCH" = "master" ]] && [[ "$TRAVIS_PULL_REQUEST" = "false" ]] && [[ $TRAVIS_COMMIT_MESSAGE != "CONCOURSE SNAPSHOT UPDATE" ]]; then
-    sed -ie 's/SNAPSHOT/RELEASE/' build.gradle
-       git config --global user.email "$EMAIL"
-       git config --global user.name "$UNAME"
-       ./gradlew artifactPublish
-       git checkout master
-       sed -ie 's/\(^version = .*\)RELEASE/\1SNAPSHOT/' build.gradle
-       num=$(($(grep "version = .*\-SNAPSHOT" build.gradle | sed -e 's/^.*\.\([0-9]*\)-.*$/\1/')+1))
-       sed -ie "s/\(^version.*[0-9]*\.[0-9]*\.\)[0-9]*/\1${num}/" build.gradle
-       git add build.gradle
-       git commit -m "CONCOURSE SNAPSHOT UPDATE"
-       git push https://$UNAME:$PASSWD@$REPO
-  fi
